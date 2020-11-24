@@ -8,7 +8,6 @@ It demonstrates the elasticity and resilience of the system.
 Install java dependencies (<a href="https://adoptopenjdk.net/installation.html">java 11</a> and
 <a href="https://maven.apache.org/install.html">Maven</a> are required)
 
-
 ```bash
 mvn clean package
 ```
@@ -39,7 +38,10 @@ or on Linux
 
 * edit create-topics.sh and replace all instances of `kafka-topics` with `kafka-topics.sh`
 
-Run Kafka with:
+
+### Using Docker Compose 
+
+Start supporting infrastructure services with:
 
 ```bash
 docker-compose -f deploy/docker/docker-compose.yaml up
@@ -50,9 +52,18 @@ In case of previous run, you can clean the state with
 ```bash
 docker-compose -f deploy/docker/docker-compose.yaml down
 docker-compose -f deploy/docker/docker-compose.yaml rm
+docker-compose -f deploy/docker/docker-compose.yaml up
 ```
 
 Then, create the `orders` topic with `./create-topics.sh`
+
+To reset only Kafka and Zookeeper: 
+
+```bash
+docker-compose -f deploy/docker/docker-compose.yaml down zookeeper kafka
+docker-compose -f deploy/docker/docker-compose.yaml rm zookeeper kafka
+docker-compose -f deploy/docker/docker-compose.yaml up zookeeper kafka
+```
 
 # Run the demo
 
@@ -120,7 +131,7 @@ Stop the HTTP Barista, you can't order coffee anymore.
 
 # 2 or more baristas are better
 
-#### Quarkus
+#### Quarkus Native
 
 1. Build `barista-quarkus-kafka` with native image:
    ```bash

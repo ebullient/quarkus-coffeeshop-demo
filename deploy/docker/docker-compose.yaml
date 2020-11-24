@@ -28,3 +28,23 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    command:
+      - "--config.file=/config/prometheus.yml"
+    ports:
+      - "9090:9090"
+    volumes:
+      - './config:/config'
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_PATHS_CONFIG=/config/grafana.ini
+    volumes:
+      - './config:/config'
