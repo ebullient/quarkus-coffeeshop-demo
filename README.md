@@ -42,14 +42,14 @@ or on Linux
 Run Kafka with:
 
 ```bash
-docker-compose up
+docker-compose -f deploy/docker/docker-compose.yaml up
 ```
 
 In case of previous run, you can clean the state with
 
 ```bash
-docker-compose down
-docker-compose rm
+docker-compose -f deploy/docker/docker-compose.yaml down
+docker-compose -f deploy/docker/docker-compose.yaml rm
 ```
 
 Then, create the `orders` topic with `./create-topics.sh`
